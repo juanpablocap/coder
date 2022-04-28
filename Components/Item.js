@@ -19,8 +19,10 @@ const styles = StyleSheet.create({
         backgroundColor: colors.rosa,
         padding:10,
         borderRadius:3,
+        marginBottom: 10,
     },
     text:{
         color: colors.white,
+        fontSize: 18,
     }
 })

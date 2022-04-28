@@ -1,17 +1,43 @@
 
-import { View, Button, TextInput, Text, StyleSheet } from "react-native";
+import { View, Button, TextInput, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import { colors } from "../Styles/Colors";
 import Item from "../Components/Item";
+import ButtonCustom from "../Components/Button";
 
 const Layout = () => {
+
+    const [input, setInput] = useState("")
+    const [todoList, setTodoList] = useState([])
+
+    const handleAdd = () => {
+        if (input !== ""){
+        setTodoList([...todoList, {id: Date.now, todo: input}])
+        setInput("");
+        }
+        console.log(input, Date.now);
+    }
+
+
     return(
         <View style={styles.container}>
             <View style={styles.topContainer}>
-                <TextInput style={styles.input} />
-                <Button title='Add Task' />
+                <TextInput 
+                placeholder="Ingresa tu tarea.." 
+                style={styles.input} 
+                onChangeText={setInput}
+                value={input} />
+                <ButtonCustom onPress ={handleAdd} />
             </View>
             <View style={styles.itemList}>
-                <Item item={{id:1, todo: "Estudiar React Native!"}}></Item>
+                { todoList.length !==0 ? 
+                todoList.map (item =>{
+                    return(
+                        <Item item = {item} key={item.id} />
+                    )
+                })
+                : <text>No hay items cargados</text>
+            }
             </View>
         </View>
     )
@@ -37,11 +63,12 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         width: 200,
         padding: 4,
+        fontSize: 18,
     },
     itemList:{
         backgroundColor: colors.gray,
         borderRadius: 8,
-        width: '90%',
+        width: '95%',
         padding: 20,
-    }
+    },
 })
