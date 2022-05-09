@@ -1,44 +1,56 @@
 
-import { View, Button, TextInput, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Button, TextInput, Text, StyleSheet } from "react-native";
 import { useState } from "react";
 import { colors } from "../Styles/Colors";
 import Item from "../Components/Item";
 import ButtonCustom from "../Components/Button";
-
+import Header from '../Components/Header';
+import Lista from '../Components/Lista';
+import CustomModal from '../Components/Modal';
+ 
 const Layout = () => {
 
-    const [input, setInput] = useState("")
-    const [todoList, setTodoList] = useState([])
+    const [modalVisible, setModalVisible] = useState(false);
+    const [todoSelected, setTodoSelected] = useState([]);
+    const [todoList, setTodoList] = useState({});
 
-    const handleAdd = () => {
-        if (input !== ""){
-        setTodoList([...todoList, {id: Date.now, todo: input}])
-        setInput("");
+    const handleAdd = (input) => {
+        {
+            setTodoList([...todoList, {id: Date.now(), todo: input}])
         }
-        console.log(input, Date.now);
     }
 
+    const handleModal = (todoSelected) => {
+        setModalVisible(true);
+        setTodoSelected(todoSelected);
+    }
+
+    const handleDelete = () => {
+        const todoFiltrados = todoList.filter(item => item !== todoSelected);
+        setTodoList(todoFiltrados);
+        setModalVisible(false);
+    }
+
+    const handleEdit = (text) => {
+        const todoToEdit = todoList.find(todo => todo.id === todoSelected.id);
+        todoToEdit.todo = text;
+        const todoAux = [];
+        todoList.forEach((item) => {
+            todoAux.push(item)
+        })
+        setTodoList(todoAux)
+    }
 
     return(
         <View style={styles.container}>
-            <View style={styles.topContainer}>
-                <TextInput 
-                placeholder="Ingresa tu tarea.." 
-                style={styles.input} 
-                onChangeText={setInput}
-                value={input} />
-                <ButtonCustom onPress ={handleAdd} />
-            </View>
-            <View style={styles.itemList}>
-                { todoList.length !==0 ? 
-                todoList.map (item =>{
-                    return(
-                        <Item item = {item} key={item.id} />
-                    )
-                })
-                : <text>No hay items cargados</text>
-            }
-            </View>
+            <Header handleAdd={handleAdd} />
+            <Lista handleModal={handleModal} todoList={todoList}/>
+            <CustomModal
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+            />
         </View>
     )
 }
@@ -50,25 +62,4 @@ const styles = StyleSheet.create({
         padding: 25,
         flexDirection: 'column',
         justifyContent: 'space-around',
-    },
-    topContainer:{
-        marginTop:30,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        padding: 8, 
-    },
-    input:{
-        borderRadius: 8,
-        borderWidth: 2,
-        width: 200,
-        padding: 4,
-        fontSize: 18,
-    },
-    itemList:{
-        backgroundColor: colors.gray,
-        borderRadius: 8,
-        width: '95%',
-        padding: 20,
-    },
-})
+}})
