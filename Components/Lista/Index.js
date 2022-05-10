@@ -10,7 +10,9 @@ const Lista = ({handleModal, todolist}) => {
 
     return (
         <View style = {styles.itemList}>
-            
+
         </View>
     )
 }
+
+// comentarios para hacer un commit
