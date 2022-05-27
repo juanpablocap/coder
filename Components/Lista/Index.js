@@ -15,4 +15,4 @@ const Lista = ({handleModal, todolist}) => {
     )
 }
 
-// comentarios para hacer un commit
+// comentarios para hacer un commit trabajo practico n5
