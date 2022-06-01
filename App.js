@@ -1,6 +1,6 @@
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { ActivityIndicator} from 'react-native';
 import {useFonts} from 'expo-font';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import MainNavigator from './Navigation';
 
 export default function App() {
