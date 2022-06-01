@@ -1,9 +1,7 @@
 export const colors = {
-    gray: '#e5e5e5',
-    white: '#FCFFE7',
-    celeste: '#4cc9f0',
-    azul: '#4361ee',
-    violeta: '#7209b7',
-    rosa: '#f72585',
-    black: '000000',
+    darkBlue: "#005555",
+    regularBlue: "#069A8E",
+    lightBlue: "#A1E3D8",
+    beige: "#F7FF93",
+    shadowTab: "#7F5FF0",
 }
