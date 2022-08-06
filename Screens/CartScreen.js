@@ -10,7 +10,7 @@ const handleConfirm = () => console.log("Se confirma la compra");
 const renderItem = (data) => (
     <CartItem item={data.item} onDelete={handleDelete} />
 )
-//details
+//details more
 const CartScreen = () => {
 
     const total = 12000;
